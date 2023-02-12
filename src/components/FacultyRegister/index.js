@@ -2,10 +2,10 @@ import {Component} from 'react'
 
 import './index.css'
 
-class StudentRegister extends Component {
+class FacultyRegister extends Component {
   state = {
     name: '',
-    rollNumber: '',
+    userName: '',
     DOB: '',
     gender: '',
     mobileNo: '',
@@ -17,8 +17,8 @@ class StudentRegister extends Component {
     this.setState({name: e.target.value})
   }
 
-  getRollData = e => {
-    this.setState({rollNumber: e.target.value})
+  getUserNameData = e => {
+    this.setState({userName: e.target.value})
   }
 
   getDobData = e => {
@@ -44,7 +44,7 @@ class StudentRegister extends Component {
   onRegister = e => {
     const {
       name,
-      rollNumber,
+      userName,
       DOB,
       gender,
       mobileNo,
@@ -54,21 +54,26 @@ class StudentRegister extends Component {
     e.preventDefault()
     const newUser = {
       name,
-      rollNumber,
+      userName,
       DOB,
       gender,
       mobileNo,
       emailId,
       password,
     }
-    const storedUserDetails = JSON.parse(localStorage.getItem('StudentDetails'))
+
+    const storedUserDetails = JSON.parse(
+      localStorage.getItem('FacultyDetails') || '[]',
+    )
     const isValid = storedUserDetails.filter(
-      eachItem => eachItem.rollNumber === rollNumber,
+      eachItem => eachItem.userName === userName,
     )
     if (isValid.length !== 0) {
-      alert('rollNumber already exists.')
+      alert('Username already exists. Try other one')
     } else if (name === '') {
       alert('name field is required')
+    } else if (userName === '') {
+      alert('username field is required')
     } else if (password === '') {
       alert('password field is required')
     } else if (password.length < 5) {
@@ -77,42 +82,40 @@ class StudentRegister extends Component {
       alert('mobileNo field is required')
     } else if (DOB === '') {
       alert('DOB field is required')
-    } else if (rollNumber === '') {
-      alert('rollNumber field is required')
     } else if (emailId === '') {
       alert('emailId field is required')
     } else if (!emailId.includes('@')) {
       alert('provide valid email id')
     } else {
-      const users = JSON.parse(localStorage.getItem('StudentDetails') || '[]')
+      const users = JSON.parse(localStorage.getItem('FacultyDetails') || '[]')
       users.push(newUser)
-      localStorage.setItem('StudentDetails', JSON.stringify(users))
+      localStorage.setItem('FacultyDetails', JSON.stringify(users))
       const {history} = this.props
-      history.replace('/student-login')
+      history.replace('/faculty-login')
     }
   }
 
   render() {
     const {
       name,
-      rollNumber,
       DOB,
       mobileNo,
       gender,
       emailId,
       password,
+      userName,
     } = this.state
     return (
       <div className="bg-container">
         <div className="form-container">
           <h1 className="head">Sign Up</h1>
           <form className="form" onSubmit={this.onRegister}>
-            <label className="label" htmlFor="name">
+            <label className="label" htmlFor="name1">
               Name
             </label>
             <br />
             <input
-              id="name"
+              id="name1"
               type="text"
               placeholder="Enter Name"
               className="input"
@@ -120,25 +123,25 @@ class StudentRegister extends Component {
               value={name}
             />
             <br />
-            <label className="label" htmlFor="roll">
-              Roll Number
+            <label className="label" htmlFor="username1">
+              Name
             </label>
             <br />
             <input
-              id="roll"
+              id="username1"
               type="text"
-              placeholder="Enter Roll Number"
+              placeholder="Enter username"
               className="input"
-              onChange={this.getRollData}
-              value={rollNumber}
+              onChange={this.getUserNameData}
+              value={userName}
             />
             <br />
-            <label className="label" htmlFor="dob">
+            <label className="label" htmlFor="dob1">
               Date of Birth
             </label>
             <br />
             <input
-              id="dob"
+              id="dob1"
               type="date"
               placeholder="Enter Date of Birth"
               className="input"
@@ -146,30 +149,30 @@ class StudentRegister extends Component {
               value={DOB}
             />
             <br />
-            <label className="label" htmlFor="gender" value={gender}>
+            <label className="label" htmlFor="gender1" value={gender}>
               Gender
             </label>
-            <label className="label" htmlFor="male">
+            <label className="label" htmlFor="male1">
               Male
             </label>
             <input
-              id="male"
+              id="male1"
               type="radio"
               value="Male"
               name="gender"
               onChange={this.getGenderData}
             />
-            <label className="label" htmlFor="female">
+            <label className="label" htmlFor="female1">
               Female
             </label>
-            <input id="female" type="radio" value="Female" name="gender" />
+            <input id="female1" type="radio" value="Female" name="gender" />
             <br />
-            <label className="label" htmlFor="mobile">
+            <label className="label" htmlFor="mobile1">
               Mobile Number
             </label>
             <br />
             <input
-              id="mobile"
+              id="mobile1"
               type="text"
               placeholder="Enter Mobile Number"
               className="input"
@@ -177,12 +180,12 @@ class StudentRegister extends Component {
               value={mobileNo}
             />
             <br />
-            <label className="label" htmlFor="email">
+            <label className="label" htmlFor="email1">
               Email
             </label>
             <br />
             <input
-              id="email"
+              id="email1"
               type="text"
               placeholder="Enter Email Id"
               className="input"
@@ -190,12 +193,12 @@ class StudentRegister extends Component {
               value={emailId}
             />
             <br />
-            <label className="label" htmlFor="password">
+            <label className="label" htmlFor="password1">
               Password
             </label>
             <br />
             <input
-              id="password"
+              id="password1"
               type="password"
               placeholder="Enter Password"
               className="input"
@@ -213,4 +216,4 @@ class StudentRegister extends Component {
   }
 }
 
-export default StudentRegister
+export default FacultyRegister

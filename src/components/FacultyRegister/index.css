@@ -1,12 +1,21 @@
 .bg-container {
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
 }
 
+.form-container {
+  width: 70%;
+  padding: 20px;
+}
+
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
 .d-col {
   display: flex;
   flex-direction: column;
@@ -14,16 +23,10 @@
   align-items: flex-start;
 }
 
-.form-container {
-  width: 500px;
-  padding: 20px;
-}
-
 .label {
   font-family: 'roboto';
   font-size: 18px;
   color: #302623;
-  margin: 10px 0px;
   margin-right: 5px;
   margin-left: 5px;
 }
@@ -40,10 +43,6 @@ textarea:focus {
   padding: 3px 0px 3px 3px;
   margin: 5px 1px 3px 0px;
   border: 1px solid rgba(81, 203, 238, 1);
-}
-
-.form {
-  width: 100%;
 }
 
 .head {
